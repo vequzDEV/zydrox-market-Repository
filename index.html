@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VEQUZ MARKET — Private Resource Hub für Addons, Tools, Templates, Presets und digitale Ressourcen.">
+    <meta name="theme-color" content="#0a0a0a">
+    <title>VEQUZ MARKET — Private Resource Hub</title>
+
+    <style>
+        :root {
+            --yellow: #ffff00;
+            --yellow-dark: #dada00;
+            --bg: #070707;
+            --panel: #0d0d0d;
+            --panel-2: #111111;
+            --border: rgba(255,255,0,.22);
+            --text: #f5f5f5;
+            --muted: #a8a8a8;
+            --max: 1200px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        body.menu-open {
+            overflow: hidden;
+        }
+
+        button,
+        input,
+        textarea {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        /* =========================
+           START / LANDING SCREEN
+        ========================== */
+
+        #start {
+            position: fixed;
+            inset: 0;
+            z-index: 999999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            text-align: center;
+            color: #fff;
+            background:
+                linear-gradient(rgba(0,0,0,.40), rgba(0,0,0,.68)),
+                url("https://cdn.discordapp.com/attachments/1551231906392178798/1551633816173416559/323E32F2-A871-4E3C-AD4A-98C86C960B80.png?ex=6ab2af19&is=6ab15d99&hm=104b4959ed1fe8c1b7524b86a10534f7bf70d967bc98f66b13941f4fc44ad6f9");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .start-box {
+            width: min(900px, 100%);
+            padding: 42px 26px;
+        }
+
+        .start-logo {
+            display: inline-block;
+            margin-bottom: 14px;
+            color: var(--yellow);
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+
+        #start h1 {
+            margin: 0 0 22px;
+            font-size: clamp(48px, 10vw, 110px);
+            line-height: .9;
+            font-weight: 900;
+            letter-spacing: -4px;
+            text-shadow: 0 5px 30px rgba(0,0,0,.9);
+        }
+
+        #start h1 span {
+            color: var(--yellow);
+        }
+
+        #start p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: #ddd;
+            font-size: clamp(16px, 2vw, 21px);
+            line-height: 1.7;
+            text-shadow: 0 2px 12px #000;
+        }
+
+        .enter {
+            margin-top: 34px;
+            padding: 17px 34px;
+            border: 0;
+            border-radius: 7px;
+            background: var(--yellow);
+            color: #050505;
+            font-weight: 900;
+            letter-spacing: 1px;
+            transition: transform .2s ease, box-shadow .2s ease;
+            box-shadow: 0 0 30px rgba(255,255,0,.18);
+        }
+
+        .enter:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 35px rgba(255,255,0,.35);
+        }
+
+        /* =========================
+           HEADER
+        ========================== */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,0,.12);
+            background: rgba(7,7,7,.92);
+            backdrop-filter: blur(14px);
+        }
+
+        .nav {
+            width: min(var(--max), calc(100% - 32px));
+            min-height: 76px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .brand {
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+
+        .brand span {
+            color: var(--yellow);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navbtn,
+        .menu {
+            border: 1px solid var(--border);
+            border-radius: 7px;
+            background: transparent;
+            color: #fff;
+            padding: 11px 16px;
+        }
+
+        .navbtn:hover {
+            color: #050505;
+            background: var(--yellow);
+        }
+
+        .menu {
+            width: 48px;
+            height: 44px;
+            padding: 0;
+            border-color: transparent;
+            color: var(--yellow);
+            font-size: 27px;
+            line-height: 1;
+            position: relative;
+            z-index: 1000001;
+        }
+
+        .menu:hover {
+            background: rgba(255,255,0,.08);
+        }
+
+        /* =========================
+           GENERAL LAYOUT
+        ========================== */
+
+        main {
+            width: min(var(--max), calc(100% - 32px));
+            margin: auto;
+        }
+
+        section {
+            padding: 90px 0;
+            scroll-margin-top: 76px;
+        }
+
+        .hero {
+            min-height: 520px;
+            display: grid;
+            grid-template-columns: 1.25fr .75fr;
+            align-items: center;
+            gap: 50px;
+            padding-top: 95px;
+        }
+
+        .kicker {
+            margin-bottom: 12px;
+            color: var(--yellow);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .hero h2 {
+            max-width: 800px;
+            font-size: clamp(48px, 8vw, 92px);
+            line-height: .92;
+            letter-spacing: -4px;
+            margin-bottom: 25px;
+        }
+
+        .hero h2 span {
+            color: var(--yellow);
+        }
+
+        .hero p {
+            max-width: 720px;
+            color: var(--muted);
+            font-size: 18px;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 48px;
+            padding: 13px 20px;
+            border: 1px solid rgba(255,255,0,.3);
+            border-radius: 7px;
+            background: transparent;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 800;
+            transition: .2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            border-color: var(--yellow);
+        }
+
+        .btn.primary {
+            background: var(--yellow);
+            color: #050505;
+            border-color: var(--yellow);
+        }
+
+        .hero-card {
+            min-height: 330px;
+            display: flex;
+            align-items: flex-end;
+            padding: 25px;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            background:
+                linear-gradient(145deg, rgba(255,255,0,.08), transparent 50%),
+                linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.9)),
+                url("https://cdn.discordapp.com/attachments/1551231906392178798/1551633816173416559/323E32F2-A871-4E3C-AD4A-98C86C960B80.png?ex=6ab2af19&is=6ab15d99&hm=104b4959ed1fe8c1b7524b86a10534f7bf70d967bc98f66b13941f4fc44ad6f9");
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 0 50px rgba(255,255,0,.05);
+        }
+
+        .hero-card strong {
+            display: block;
+            color: var(--yellow);
+            font-size: 28px;
+        }
+
+        .hero-card small {
+            color: #ccc;
+        }
+
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .section-head h2 {
+            font-size: clamp(34px, 5vw, 56px);
+            line-height: 1;
+        }
+
+        .section-head > p {
+            max-width: 520px;
+            color: var(--muted);
+        }
+
+        /* =========================
+           SHOP
+        ========================== */
+
+        .shop-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 25px;
+        }
+
+        .shop-filter {
+            padding: 10px 15px;
+            border: 1px solid #292929;
+            border-radius: 999px;
+            background: #101010;
+            color: #bbb;
+        }
+
+        .shop-filter.active,
+        .shop-filter:hover {
+            border-color: var(--yellow);
+            background: var(--yellow);
+            color: #050505;
+        }
+
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .product,
+        .resource,
+        .card,
+        .mini,
+        .feature,
+        .cta {
+            border: 1px solid #222;
+            background: linear-gradient(145deg, #111, #0a0a0a);
+            border-radius: 14px;
+        }
+
+        .product {
+            overflow: hidden;
+        }
+
+        .product-art {
+            height: 150px;
+            display: grid;
+            place-items: center;
+            background:
+                radial-gradient(circle at center, rgba(255,255,0,.16), transparent 55%),
+                #090909;
+            border-bottom: 1px solid #202020;
+        }
+
+        .diamond {
+            width: 56px;
+            height: 56px;
+            border: 2px solid var(--yellow);
+            transform: rotate(45deg);
+            box-shadow: 0 0 25px rgba(255,255,0,.18);
+        }
+
+        .product-body {
+            padding: 20px;
+        }
+
+        .product-label,
+        .type,
+        .tag {
+            color: var(--yellow);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .product h3 {
+            margin: 8px 0;
+            font-size: 22px;
+        }
+
+        .product p,
+        .resource p,
+        .card p,
+        .mini p {
+            color: var(--muted);
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .price {
+            font-weight: 900;
+        }
+
+        .product-btn,
+        .resource button {
+            border: 1px solid var(--yellow);
+            border-radius: 6px;
+            padding: 9px 12px;
+            background: transparent;
+            color: var(--yellow);
+            font-weight: 800;
+        }
+
+        .product-btn:hover,
+        .resource button:hover {
+            background: var(--yellow);
+            color: #050505;
+        }
+
+        .shop-banner {
+            margin-top: 18px;
+            padding: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: rgba(255,255,0,.04);
+        }
+
+        .shop-banner span {
+            display: block;
+            color: var(--muted);
+            margin-top: 3px;
+        }
+
+        /* =========================
+           DROPS / RESOURCES / CARDS
+        ========================== */
+
+        .drop {
+            display: grid;
+            grid-template-columns: 1.4fr .6fr;
+            gap: 16px;
+        }
+
+        .feature {
+            padding: 35px;
+            min-height: 340px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .feature .big {
+            color: var(--yellow);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 3px;
+        }
+
+        .feature h3 {
+            margin: 8px 0;
+            font-size: clamp(34px, 5vw, 60px);
+            line-height: .95;
+        }
+
+        .feature p {
+            max-width: 650px;
+            color: var(--muted);
+        }
+
+        .side {
+            display: grid;
+            gap: 16px;
+        }
+
+        .mini {
+            padding: 22px;
+        }
+
+        .mini b {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .resource-grid,
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .resource,
+        .card {
+            padding: 24px;
+        }
+
+        .resource h4,
+        .card h3 {
+            margin: 8px 0;
+            font-size: 22px;
+        }
+
+        .resource button {
+            margin-top: 18px;
+        }
+
+        .search {
+            width: 100%;
+            margin-bottom: 18px;
+            padding: 15px 16px;
+            border: 1px solid #282828;
+            border-radius: 8px;
+            outline: none;
+            background: #0c0c0c;
+            color: #fff;
+        }
+
+        .search:focus {
+            border-color: var(--yellow);
+        }
+
+        .icon {
+            width: 45px;
+            height: 45px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 15px;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            background: rgba(255,255,0,.04);
+        }
+
+        .tag {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 5px 8px;
+            border: 1px solid rgba(255,255,0,.2);
+            border-radius: 4px;
+        }
+
+        .cta {
+            margin: 25px 0 80px;
+            padding: 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .cta h2 {
+            margin: 4px 0;
+            font-size: clamp(30px, 4vw, 48px);
+        }
+
+        .cta p {
+            color: var(--muted);
+        }
+
+        footer {
+            border-top: 1px solid #181818;
+            padding: 30px 16px;
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            color: #777;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        /* =========================
+           MOBILE MENU
+        ========================== */
+
+        #mobileMenu {
+            position: fixed;
+            top: 0;
+            right: -340px;
+            width: min(320px, 88vw);
+            height: 100vh;
+            z-index: 1000000;
+            padding: 88px 20px 20px;
+            background: rgba(8,8,8,.98);
+            border-left: 2px solid var(--yellow);
+            box-shadow: -20px 0 60px rgba(0,0,0,.6);
+            transition: right .3s ease;
+        }
+
+        #mobileMenu.open {
+            right: 0;
+        }
+
+        #mobileMenu a {
+            display: block;
+            padding: 18px 15px;
+            border-bottom: 1px solid #252525;
+            color: #fff;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        #mobileMenu a:hover {
+            color: var(--yellow);
+        }
+
+        #menuClose {
+            position: absolute;
+            top: 22px;
+            right: 20px;
+            width: 42px;
+            height: 42px;
+            border: 1px solid #292929;
+            border-radius: 7px;
+            background: transparent;
+            color: #fff;
+            font-size: 24px;
+        }
+
+        #menuClose:hover {
+            color: var(--yellow);
+            border-color: var(--yellow);
+        }
+
+        /* =========================
+           MODAL / TOAST
+        ========================== */
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 2000000;
+            display: none;
+            place-items: center;
+            padding: 20px;
+            background: rgba(0,0,0,.78);
+        }
+
+        .modal.show {
+            display: grid;
+        }
+
+        .modalbox {
+            width: min(520px, 100%);
+            padding: 24px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: #0b0b0b;
+            box-shadow: 0 20px 70px rgba(0,0,0,.6);
+        }
+
+        .modalhead {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .modalhead h3 {
+            font-size: 25px;
+        }
+
+        .close {
+            border: 0;
+            background: transparent;
+            color: #fff;
+            font-size: 30px;
+        }
+
+        .form {
+            display: grid;
+            gap: 12px;
+        }
+
+        .form input,
+        .form textarea {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #292929;
+            border-radius: 7px;
+            outline: none;
+            background: #111;
+            color: #fff;
+        }
+
+        .form input:focus,
+        .form textarea:focus {
+            border-color: var(--yellow);
+        }
+
+        .form textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: 25px;
+            z-index: 3000000;
+            transform: translate(-50%, 20px);
+            padding: 13px 18px;
+            border: 1px solid var(--yellow);
+            border-radius: 8px;
+            background: #0b0b0b;
+            color: #fff;
+            opacity: 0;
+            pointer-events: none;
+            transition: .25s ease;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================== */
+
+        @media (max-width: 900px) {
+            .hero,
+            .drop {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-card {
+                min-height: 260px;
+            }
+
+            .shop-grid,
+            .resource-grid,
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .section-head {
+                align-items: start;
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 620px) {
+            .nav {
+                min-height: 68px;
+            }
+
+            .navbtn {
+                display: none;
+            }
+
+            main {
+                width: min(var(--max), calc(100% - 22px));
+            }
+
+            section {
+                padding: 65px 0;
+            }
+
+            .hero {
+                min-height: 0;
+                padding-top: 70px;
+            }
+
+            .hero h2 {
+                letter-spacing: -2px;
+            }
+
+            .shop-grid,
+            .resource-grid,
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .shop-banner,
+            .cta,
+            footer {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .feature {
+                min-height: 300px;
+                padding: 25px;
+            }
+
+            #start {
+                padding: 15px;
+            }
+
+            .start-box {
+                padding: 25px 10px;
+            }
+
+            #start h1 {
+                font-size: clamp(43px, 15vw, 75px);
+                letter-spacing: -3px;
+            }
+
+            #start p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         LANDING SCREEN
+    ========================== -->
+    <div id="start">
+        <div class="start-box">
+            <div class="start-logo">PRIVATE RESOURCE HUB</div>
+            <h1>VEQUZ <span>MARKET</span></h1>
+            <p>
+                Hochwertige digitale Produkte, Ressourcen und Services —
+                sauber organisiert, schnell und mit einem klaren Premium-Look.
+            </p>
+            <button class="enter" id="enterMarket" type="button">ENTER MARKET →</button>
+        </div>
+    </div>
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+    <header>
+        <nav class="nav">
+            <a class="brand" href="#home">VEQUZ <span>MARKET</span></a>
+
+            <div class="nav-actions">
+                <button class="navbtn" type="button" onclick="openModal('Access')">GET ACCESS</button>
+                <button class="menu" id="menuButton" type="button" aria-label="Menü öffnen" aria-expanded="false">☰</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- =========================
+         MOBILE MENU
+    ========================== -->
+    <div id="mobileMenu" aria-hidden="true">
+        <button id="menuClose" type="button" aria-label="Menü schließen">✕</button>
+        <a href="#home">HOME</a>
+        <a href="#products">PRODUCTS</a>
+        <a href="#drops">DROPS</a>
+        <a href="#resources">RESOURCES</a>
+        <a href="#services">SERVICES</a>
+        <a href="#about">ABOUT</a>
+        <a href="#support">SUPPORT</a>
+    </div>
+
+    <main>
+
+        <!-- =========================
+             HOME
+        ========================== -->
+        <section id="home" class="hero">
+            <div>
+                <div class="kicker">VEQUZ MARKET · 2026</div>
+                <h2>YOUR DIGITAL <span>DROP ZONE.</span></h2>
+                <p>
+                    VEQUZ MARKET ist eine private digitale Resource-Plattform
+                    für legale Addons, Tools, Templates, Presets, Mods und
+                    kreative Ressourcen.
+                </p>
+
+                <div class="hero-actions">
+                    <a class="btn primary" href="#products">EXPLORE PRODUCTS →</a>
+                    <a class="btn" href="https://vequz-market-backend.onrender.com/api/auth/discord">
+    REQUEST ACCESS →
+</a>
+                </div>
+            </div>
+
+            <div class="hero-card">
+                <div>
+                    <strong>PREMIUM · FAST · SECURE</strong>
+                    <small>Digitale Ressourcen. Klar organisiert.</small>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================
+             PRODUCTS
+        ========================== -->
+        <section id="products">
+            <div class="section-head">
+                <div>
+                    <div class="kicker">SHOP · 00</div>
+                    <h2>Products</h2>
+                </div>
+                <p>
+                    Demo-Produkte als Ausgangspunkt. Du kannst Namen,
+                    Preise und Beschreibungen später direkt ersetzen.
+                </p>
+            </div>
+
+            <div class="shop-bar">
+                <button class="shop-filter active" type="button" onclick="filterShop('all', this)">Alle</button>
+                <button class="shop-filter" type="button" onclick="filterShop('templates', this)">Templates</button>
+                <button class="shop-filter" type="button" onclick="filterShop('creative', this)">Creative</button>
+                <button class="shop-filter" type="button" onclick="filterShop('tools', this)">Tools</button>
+                <button class="shop-filter" type="button" onclick="filterShop('bundles', this)">Bundles</button>
+            </div>
+
+            <div class="shop-grid" id="shopGrid">
+                <article class="product" data-category="templates">
+                    <div class="product-art"><div class="diamond"></div></div>
+                    <div class="product-body">
+                        <div class="product-label">TEMPLATES · 001</div>
+                        <h3>VEQUZ UI PACK</h3>
+                        <p>Premium UI-Elemente und Layouts für moderne digitale Projekte.</p>
+                        <div class="product-meta">
+                            <span class="price">€9,99</span>
+                            <button class="product-btn" type="button" onclick="openModal('VEQUZ UI PACK')">ANSEHEN →</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product" data-category="creative">
+                    <div class="product-art"><div class="diamond"></div></div>
+                    <div class="product-body">
+                        <div class="product-label">CREATIVE · 002</div>
+                        <h3>NEON CREATOR KIT</h3>
+                        <p>Overlays, Grafiken und visuelle Assets im schwarzen Neon-Look.</p>
+                        <div class="product-meta">
+                            <span class="price">€14,99</span>
+                            <button class="product-btn" type="button" onclick="openModal('NEON CREATOR KIT')">ANSEHEN →</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product" data-category="tools">
+                    <div class="product-art"><div class="diamond"></div></div>
+                    <div class="product-body">
+                        <div class="product-label">TOOLS · 003</div>
+                        <h3>UTILITY PRO</h3>
+                        <p>Praktische digitale Helfer für schnellere und sauberere Workflows.</p>
+                        <div class="product-meta">
+                            <span class="price">€7,99</span>
+                            <button class="product-btn" type="button" onclick="openModal('UTILITY PRO')">ANSEHEN →</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product" data-category="bundles">
+                    <div class="product-art"><div class="diamond"></div></div>
+                    <div class="product-body">
+                        <div class="product-label">BUNDLE · 004</div>
+                        <h3>GOLD EDITION</h3>
+                        <p>Mehrere VEQUZ-Ressourcen kombiniert in einem Premium-Bundle.</p>
+                        <div class="product-meta">
+                            <span class="price">€24,99</span>
+                            <button class="product-btn" type="button" onclick="openModal('GOLD EDITION')">ANSEHEN →</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product" data-category="templates">
+                    <div class="product-art"><div class="diamond"></div></div>
+                    <div class="product-body">
+                        <div class="product-label">TEMPLATES · 005</div>
+                        <h3>DISCORD ELITE</h3>
+                        <p>Struktur- und Designvorlagen für einen modernen Community-Auftritt.</p>
+                        <div class="product-meta">
+                            <span class="price">€11,99</span>
+                            <button class="product-btn" type="button" onclick="openModal('DISCORD ELITE')">ANSEHEN →</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product" data-category="creative">
+                    <div class="product-art"><div class="diamond"></div></div>
+                    <div class="product-body">
+                        <div class="product-label">CREATIVE · 006</div>
+                        <h3>BLACK &amp; GOLD PACK</h3>
+                        <p>Passende Grafikelemente für den vollständigen VEQUZ-MARKET-Look.</p>
+                        <div class="product-meta">
+                            <span class="price">€19,99</span>
+                            <button class="product-btn" type="button" onclick="openModal('BLACK & GOLD PACK')">ANSEHEN →</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <div class="shop-banner">
+                <div>
+                    <b>PREMIUM VEQUZ MARKET</b>
+                    <span>Neue Drops, digitale Produkte und exklusive Bundles.</span>
+                </div>
+                <button class="btn primary" type="button" onclick="openModal('Shop Access')">SHOP ACCESS →</button>
+            </div>
+        </section>
+
+        <!-- =========================
+             DROPS
+        ========================== -->
+        <section id="drops">
+            <div class="section-head">
+                <div>
+                    <div class="kicker">01 / LATEST</div>
+                    <h2>Latest Drops</h2>
+                </div>
+                <p>Neue Ressourcen können hier als Drops veröffentlicht werden.</p>
+            </div>
+
+            <div class="drop">
+                <div class="feature">
+                    <div class="big">VEQUZ DROP 001</div>
+                    <h3>THE STARTER PACK</h3>
+                    <p>
+                        Ein kuratiertes Bundle aus Templates, Presets und
+                        nützlichen Creator-Ressourcen für den ersten VEQUZ Release.
+                    </p>
+                    <div>
+                        <button class="btn primary" type="button" style="margin-top:20px" onclick="openModal('Starter Pack')">VIEW DROP</button>
+                    </div>
+                </div>
+
+                <div class="side">
+                    <div class="mini">
+                        <b>⚡ Quick Tools</b>
+                        <p>Kleine Tools und Utilities für schnellere Workflows.</p>
+                    </div>
+                    <div class="mini">
+                        <b>🎨 Creative Assets</b>
+                        <p>Overlays, Presets, Templates und Design-Ressourcen.</p>
+                    </div>
+                    <div class="mini">
+                        <b>🧩 Addons &amp; Mods</b>
+                        <p>Legale und autorisierte Erweiterungen für unterstützte Projekte.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================
+             RESOURCES
+        ========================== -->
+        <section id="resources">
+            <div class="section-head">
+                <div>
+                    <div class="kicker">02 / LIBRARY</div>
+                    <h2>Resources</h2>
+                </div>
+                <p>Suche nach Kategorien und finde passende digitale Ressourcen.</p>
+            </div>
+
+            <input class="search" id="search" type="search" placeholder="Search resources..." autocomplete="off">
+
+            <div class="resource-grid" id="resourceGrid">
+                <div class="resource" data-search="cinematic presets editing">
+                    <div class="type">PRESETS</div>
+                    <h4>Cinematic Presets</h4>
+                    <p>Look-Presets für Video- und Foto-Workflows.</p>
+                    <button type="button" onclick="openModal('Cinematic Presets')">OPEN</button>
+                </div>
+
+                <div class="resource" data-search="discord templates server">
+                    <div class="type">TEMPLATES</div>
+                    <h4>Discord Template Pack</h4>
+                    <p>Strukturvorlagen für moderne Community-Server.</p>
+                    <button type="button" onclick="openModal('Discord Template Pack')">OPEN</button>
+                </div>
+
+                <div class="resource" data-search="overlay creator video">
+                    <div class="type">CREATIVE</div>
+                    <h4>Creator Overlay Kit</h4>
+                    <p>Clean Overlays und UI-Elemente für Content.</p>
+                    <button type="button" onclick="openModal('Creator Overlay Kit')">OPEN</button>
+                </div>
+
+                <div class="resource" data-search="tools utility workflow">
+                    <div class="type">TOOLS</div>
+                    <h4>Utility Pack</h4>
+                    <p>Praktische Tools für alltägliche digitale Workflows.</p>
+                    <button type="button" onclick="openModal('Utility Pack')">OPEN</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================
+             SERVICES
+        ========================== -->
+        <section id="services">
+            <div class="section-head">
+                <div>
+                    <div class="kicker">03 / SERVICES</div>
+                    <h2>What we offer</h2>
+                </div>
+                <p>Digitale Services und Ressourcen übersichtlich an einem Ort.</p>
+            </div>
+
+            <div class="grid">
+                <div class="card">
+                    <div class="icon">🧩</div>
+                    <h3>Addons</h3>
+                    <p>Legale Erweiterungen und Zusatzinhalte für unterstützte Software und Projekte.</p>
+                    <span class="tag">AUTHORIZED</span>
+                </div>
+
+                <div class="card">
+                    <div class="icon">🛠️</div>
+                    <h3>Tools</h3>
+                    <p>Utilities, kleine Helfer und Workflow-Tools für Creator und Communities.</p>
+                    <span class="tag">TOOLS</span>
+                </div>
+
+                <div class="card">
+                    <div class="icon">🎨</div>
+                    <h3>Design</h3>
+                    <p>Templates, Overlays, UI-Elemente, Presets und weitere kreative Assets.</p>
+                    <span class="tag">CREATIVE</span>
+                </div>
+
+                <div class="card">
+                    <div class="icon">🤖</div>
+                    <h3>Discord</h3>
+                    <p>Server-Strukturen, Bot-Systeme, Tickets, Rollen und Community-Setups.</p>
+                    <span class="tag">COMMUNITY</span>
+                </div>
+
+                <div class="card">
+                    <div class="icon">📦</div>
+                    <h3>Bundles</h3>
+                    <p>Mehrere Ressourcen werden zu übersichtlichen Packs zusammengefasst.</p>
+                    <span class="tag">BUNDLES</span>
+                </div>
+
+                <div class="card" id="support">
+                    <div class="icon">🔒</div>
+                    <h3>Private Area</h3>
+                    <p>Ein geschützter Mitgliederbereich kann später über Login oder Discord OAuth laufen.</p>
+                    <span class="tag">PRIVATE</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================
+             ABOUT
+        ========================== -->
+        <section id="about">
+            <div class="section-head">
+                <div>
+                    <div class="kicker">04 / ABOUT</div>
+                    <h2>Built different.</h2>
+                </div>
+                <p>VEQUZ soll wie eine eigene digitale Marke wirken, nicht wie ein gewöhnlicher Download-Server.</p>
+            </div>
+
+            <div class="grid">
+                <div class="card">
+                    <div class="icon">01</div>
+                    <h3>Clean</h3>
+                    <p>Minimalistisches Interface, starke Typografie und eine klare Struktur.</p>
+                </div>
+
+                <div class="card">
+                    <div class="icon">02</div>
+                    <h3>Fast</h3>
+                    <p>Eine schlanke Frontend-Struktur ohne unnötige Bibliotheken.</p>
+                </div>
+
+                <div class="card">
+                    <div class="icon">03</div>
+                    <h3>Expandable</h3>
+                    <p>Später erweiterbar um Login, Discord OAuth, Datenbank, Downloads und Admin Panel.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================
+             REVIEWS / CTA
+        ========================== -->
+        <section id="reviews">
+            <div class="section-head">
+                <div>
+                    <div class="kicker">05 / SUPPORT</div>
+                    <h2>Need access?</h2>
+                </div>
+                <p>Fragen, Zugriffsanfragen oder individuelle Wünsche kannst du hier starten.</p>
+            </div>
+
+            <div class="cta">
+                <div>
+                    <div class="kicker">PRIVATE RESOURCE HUB</div>
+                    <h2>Ready for the next drop?</h2>
+                    <p>Baue VEQUZ Schritt für Schritt zu deiner eigenen Plattform aus.</p>
+                </div>
+                <button class="btn primary" type="button" onclick="openModal('Access')">REQUEST ACCESS →</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+    <footer>
+        <span>© 2026 VEQUZ MARKET.</span>
+        <span>ADDONS · TOOLS · TEMPLATES · DROPS</span>
+    </footer>
+
+    <!-- =========================
+         REQUEST MODAL
+    ========================== -->
+    <div class="modal" id="modal" aria-hidden="true">
+        <div class="modalbox" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <div class="modalhead">
+                <h3 id="modalTitle">Request</h3>
+                <button class="close" type="button" onclick="closeModal()" aria-label="Schließen">×</button>
+            </div>
+
+            <form class="form" id="requestForm">
+                <input id="name" placeholder="Name / Discord Name" required>
+                <input id="contact" placeholder="Discord / E-Mail" required>
+                <textarea id="message" placeholder="Was möchtest du anfragen?" required></textarea>
+                <button class="btn primary" type="submit">SEND REQUEST</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="toast" id="toast" role="status"></div>
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+    <script>
+        const startScreen = document.getElementById("start");
+        const enterMarket = document.getElementById("enterMarket");
+
+        enterMarket.addEventListener("click", function () {
+            startScreen.remove();
+            window.scrollTo(0, 0);
+        });
+
+        const menuButton = document.getElementById("menuButton");
+        const mobileMenu = document.getElementById("mobileMenu");
+        const menuClose = document.getElementById("menuClose");
+
+        function openMenu() {
+            mobileMenu.classList.add("open");
+            mobileMenu.setAttribute("aria-hidden", "false");
+            menuButton.setAttribute("aria-expanded", "true");
+            document.body.classList.add("menu-open");
+        }
+
+        function closeMenu() {
+            mobileMenu.classList.remove("open");
+            mobileMenu.setAttribute("aria-hidden", "true");
+            menuButton.setAttribute("aria-expanded", "false");
+            document.body.classList.remove("menu-open");
+        }
+
+        menuButton.addEventListener("click", openMenu);
+        menuClose.addEventListener("click", closeMenu);
+
+        mobileMenu.querySelectorAll("a").forEach(function (link) {
+            link.addEventListener("click", closeMenu);
+        });
+
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape") {
+                closeMenu();
+                closeModal();
+            }
+        });
+
+        function openModal(name) {
+            const modal = document.getElementById("modal");
+            document.getElementById("modalTitle").textContent = name + " — Request";
+            modal.classList.add("show");
+            modal.setAttribute("aria-hidden", "false");
+        }
+
+        function closeModal() {
+            const modal = document.getElementById("modal");
+            modal.classList.remove("show");
+            modal.setAttribute("aria-hidden", "true");
+        }
+
+        document.getElementById("modal").addEventListener("click", function (event) {
+            if (event.target === this) {
+                closeModal();
+            }
+        });
+
+        document.getElementById("requestForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+            closeModal();
+            showToast("Request gespeichert. Für echte Übermittlung später Discord/API verbinden.");
+            this.reset();
+        });
+
+        function showToast(message) {
+            const toast = document.getElementById("toast");
+            toast.textContent = message;
+            toast.classList.add("show");
+
+            setTimeout(function () {
+                toast.classList.remove("show");
+            }, 2800);
+        }
+
+        function filterShop(category, button) {
+            document.querySelectorAll(".shop-filter").forEach(function (item) {
+                item.classList.remove("active");
+            });
+
+            button.classList.add("active");
+
+            document.querySelectorAll("#shopGrid .product").forEach(function (card) {
+                const show = category === "all" || card.dataset.category === category;
+                card.style.display = show ? "" : "none";
+            });
+        }
+
+        const searchInput = document.getElementById("search");
+
+        searchInput.addEventListener("input", function () {
+            const query = this.value.trim().toLowerCase();
+
+            document.querySelectorAll(".resource").forEach(function (card) {
+                const text = card.dataset.search.toLowerCase();
+                card.style.display = text.includes(query) ? "" : "none";
+            });
+        });
+    </script>
+
+</body>
+</html>
