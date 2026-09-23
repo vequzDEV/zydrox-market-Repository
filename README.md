@@ -1,1 +1,0 @@
-# vequz-website
